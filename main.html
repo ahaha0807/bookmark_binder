@@ -5,17 +5,31 @@
     <title>メインページ</title>
   <body>
     <!-- TODO: ReactでBookmark Filerを作る -->
+    <!-- メニューバー -->
     <header>
       <h2>Site Title</h2>
-      <menu id="main_menu">
+      <menu id="menu">
         <ul>
-          <li><a href="#">HOME</a></li>
-          <li><a href="#">ADD</a></li>
-          <li><a href="#">TUTORIAL</a></li>
+          <li class="menu_item"><a href="#">ADD</a></li>
+          <li class="menu_item"><a href="#">EXPORT</a></li>
+          <li class="menu_item"><a href="#">INPORT</a></li>
         </ul>
       </menu>
     </header>
+    <!-- コンテンツチャンク -->
+    <div id="contents">
+      <!-- サンプルコンテンツ -->
+      <div id="sample_content">
+        <h3 id="sample_links" class="link"><a href="#">http://sample.com</a></h3>
+        <br>
+        <h1 id="sample_title" class="title"><a href="#">サンプルレコード</a></h1>
+        <br>
+        <span id="sample_time" class="submint_time">2000/01/01 0:00:00</span>
+        <span id="sample_num" class="seleal_number">0</span>
+      </div>
+      <!-- ユーザーコンテンツ -->
 
+    </div>
 
 
   </body>
