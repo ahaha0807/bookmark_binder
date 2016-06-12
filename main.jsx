@@ -10,26 +10,6 @@
 var contentsList = [];
 var cnt = 0;
 
-// === ＪＳ関数定義 ===
-
-var data_registor = () => {  //データの登録・描画
-  var content = {
-    link  : "",
-    title : "",
-    id    : 0,
-    time  : ""
-  };
-  content['title'] = document.querySelector('#data1').value;
-  content['link']  = document.querySelector('#data2').value;
-  content['id']    = cnt++;
-
-  contentsList.push(content);
-
-  ReactDOM.render(
-    <ContentsList contentsList={contentsList} />,
-    document.querySelector('#container')
-  );
-}
 
 const set_date = () => { //日付・時刻の取得
   var date = new Date();
@@ -101,3 +81,66 @@ const ContentNumber = props => {  //シリアルナンバーコンポーネン�
     </span>
   )
 }
+
+
+const MenuContentsList = props => {   //メニューリストコンポーネント定義
+  return (
+    <ul>
+      {props.menuList.map(menuItem => <MenuContent item={menuItem}/>)}
+    </ul>
+  )
+}
+
+const MenuContent = props => {    //メニューボタンコンポーネント定義
+  return (
+    <li className="menu_item">
+      <button id={props.item.id} className="menu_item" onClick={props.item.clickHandler}>{props.item.id}</button>
+    </li>
+  )
+}
+
+// === ＪＳ関数定義 ===
+
+var data_registor = () => {  //データの登録・描画
+  var content = {
+    link  : "",
+    title : "",
+    id    : 0,
+    time  : ""
+  };
+  content['title'] = document.querySelector('#data1').value;
+  content['link']  = document.querySelector('#data2').value;
+  content['id']    = cnt++;
+
+  contentsList.push(content);
+
+  ReactDOM.render(
+    <ContentsList contentsList={contentsList} />,
+    document.querySelector('#container')
+  );
+}
+
+var data_export = () => {   //データの書き出し
+
+}
+
+var data_inport = () => {   //データの読み込み
+
+}
+
+var menuList = [    //メニューボタン要素オブジェクト
+  {id: "ADD",
+    clickHandler: data_registor
+  },
+  {id: "EXPORT",
+    clickHandler: data_export
+  },
+  {id: "INPORT",
+    clickHandler: data_inport
+  }
+]
+
+ReactDOM.render(
+  <MenuContentsList menuList={menuList} />,
+  document.querySelector('#menu')
+)
