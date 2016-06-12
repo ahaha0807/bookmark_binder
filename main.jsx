@@ -29,7 +29,7 @@ const Content = props => {      //コンテンツコンポーネント定義
       <ContentTime time={set_date()} index={props.index} />
       <ContentNumber index={props.index} />
     </li>
-  );
+  )
 }
 
 const ContentTitle = props => {   //タイトルコンポーネント定義
@@ -37,7 +37,8 @@ const ContentTitle = props => {   //タイトルコンポーネント定義
     <h1 id={"title_" + props.index}>
       {props.title}
     </h1>
-  );
+  )
+}
 
 const ContentLink = props => {    //リンクコンポーネント定義
   return (
@@ -135,9 +136,9 @@ var menuList = [    //メニューボタン要素オブジェクト
   {id: "INPORT",
     clickHandler: data_inport
   }
-]
+];
 
 ReactDOM.render(
   <MenuContentsList menuList={menuList} />,
   document.querySelector('#menu')
-)
+);
