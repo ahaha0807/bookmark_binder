@@ -10,24 +10,6 @@
 var contentsList = [];
 var cnt = 0;
 
-
-const set_date = () => { //日付・時刻の取得
-  var date = new Date();
-  var year = date.getFullYear();
-  var month = date.getMonth() + 1;
-  var day = date.getDate();
-  var hour = date.getHours();
-  var minute = date.getMinutes();
-  if (minute < 10) {
-    minute = "0" + minute;
-  }
-  date = year + "/" + month + "/" + day + " ";
-  date += hour + ":" + minute;
-
-  return date;
-}
-
-
 // === Reactコンポーネント定義 ===
 const ContentsList = props => {     //コンテンツリストコンポーネント定義
   return(
@@ -56,7 +38,6 @@ const ContentTitle = props => {   //タイトルコンポーネント定義
       {props.title}
     </h1>
   );
-}
 
 const ContentLink = props => {    //リンクコンポーネント定義
   return (
@@ -100,6 +81,22 @@ const MenuContent = props => {    //メニューボタンコンポーネント�
 }
 
 // === ＪＳ関数定義 ===
+
+const set_date = () => { //日付・時刻の取得
+  var date = new Date();
+  var year = date.getFullYear();
+  var month = date.getMonth() + 1;
+  var day = date.getDate();
+  var hour = date.getHours();
+  var minute = date.getMinutes();
+  if (minute < 10) {
+    minute = "0" + minute;
+  }
+  date = year + "/" + month + "/" + day + " ";
+  date += hour + ":" + minute;
+
+  return date;
+}
 
 var data_registor = () => {  //データの登録・描画
   var content = {
