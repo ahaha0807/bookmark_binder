@@ -129,7 +129,7 @@ var data_registor = () => {  //データの登録・描画
     document.querySelector('#container')
   );
 }
-var data_export = () => {
+var data_export = () => {   //データの書き出し
 
 }
 
@@ -150,10 +150,14 @@ var modal_textbox = _mode => {
       box_ret.push(<br />);
       break;
     case 1:
-
+      box_ret.push(<lavel for="export_name">書き出しファイル名</lavel>);
+      box_ret.push(<input name="export_name" type="text" id="textbox_1"></input>);
+      box_ret.push(<br />);
       break;
     case 2:
-
+      box_ret.push(<lavel for="inport_name">読み込みファイル</lavel>);
+      box_ret.push(<input name="inport_name" type="file" id="file_1"></input>);
+      box_ret.push(<br />);
       break;
     default:
       break;
