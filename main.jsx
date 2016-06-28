@@ -7,6 +7,8 @@
  *  contentsList[]    コンテンツオブジェクト保持用配列
  *
  */
+
+//  変数・配列宣言
 var contentsList = [];
 var cnt = 0;
 
@@ -26,7 +28,7 @@ const Content = props => {      //コンテンツコンポーネント定義
       <ContentLink link={content.link} index={props.index} />
       <br />
       <ContentTitle title={content.title} index={props.index} />
-      <ContentTime time={set_date()} index={props.index} />
+      <ContentTime time={content.time} index={props.index} />
       <ContentNumber index={props.index} />
     </li>
   )
@@ -64,7 +66,6 @@ const ContentNumber = props => {  //シリアルナンバーコンポーネン�
   )
 }
 
-
 const MenuContentsList = props => {   //メニューリストコンポーネント定義
   return (
     <ul>
@@ -81,9 +82,19 @@ const MenuContent = props => {    //メニューボタンコンポーネント�
   )
 }
 
+const ModalWindow = props => {
+  return (
+    <div id="modal_content">
+      {modal_textbox(props.mode)}
+      <button onClick={props.modalList[props.mode].clickHandler}>{props.modalList[props.mode].btnName}</button>
+      <button onClick="modal_close();">閉じる</button>
+    </div>
+  )
+}
+
 // === ＪＳ関数定義 ===
 
-const set_date = () => { //日付・時刻の取得
+var set_date = () => { //日付・時刻の取得
   var date = new Date();
   var year = date.getFullYear();
   var month = date.getMonth() + 1;
@@ -106,9 +117,10 @@ var data_registor = () => {  //データの登録・描画
     id    : 0,
     time  : ""
   };
-  content['title'] = document.querySelector('#data1').value;
-  content['link']  = document.querySelector('#data2').value;
+  content['link']  = document.querySelector('#textbox_1').value;
+  content['title'] = document.querySelector('#textbox_2').value;
   content['id']    = cnt++;
+  content['time']  = set_date();
 
   contentsList.push(content);
 
@@ -117,8 +129,7 @@ var data_registor = () => {  //データの登録・描画
     document.querySelector('#container')
   );
 }
-
-var data_export = () => {   //データの書き出し
+var data_export = () => {
 
 }
 
@@ -126,19 +137,84 @@ var data_inport = () => {   //データの読み込み
 
 }
 
+var modal_textbox = _mode => {
+  var box_ret = [];
+  switch (_mode) {
+    // TODO: ここを関数・テンプレートで表示できるようにしたい
+    case 0:
+      box_ret.push(<label for="regist_url">URL</label>);
+      box_ret.push(<input name="regist_url" type="text" id="textbox_1"></input>);
+      box_ret.push(<br />);
+      box_ret.push(<label for="regist_title">タイトル・登録名</label>);
+      box_ret.push(<input name="regist_title" type="text" id="textbox_2"></input>);
+      box_ret.push(<br />);
+      break;
+    case 1:
+
+      break;
+    case 2:
+
+      break;
+    default:
+      break;
+    }
+    return box_ret;
+}
+
+
+var modal_display = _mode => { //モーダル表示
+  ReactDOM.render(
+    <ModalWindow modalList={modalList} mode={_mode} />,
+    document.querySelector('#modal')
+  );
+  //  モーダルのセンタリング
+  var width   = $(window).width();
+  var height  = $(window).height();
+  var cont_width  = $('#modal').width();
+  var cont_height = $('#modal').outerHeight();
+  var cont_left = ((width - cont_width) / 2);
+  var cont_top = ((height - cont_height) / 2);
+  $('#modal').css({"left": cont_left + "px"});
+  $('#modal').css({"top": cont_top + "px"});
+}
+
+//  データリスト配列
 var menuList = [    //メニューボタン要素オブジェクト
-  {id: "ADD",
+  {
+    id: "ADD",
+    clickHandler: () => {return modal_display(0)}//data_registor
+  },
+  {
+    id: "EXPORT",
+    clickHandler: () => {return modal_display(1)}//data_export
+  },
+  {
+    id: "INPORT",
+    clickHandler: () => {return modal_display(2)}//data_inport
+  }
+];
+
+var modalList = [
+  {
+    btnName:"登録",
     clickHandler: data_registor
   },
-  {id: "EXPORT",
+  {
+    btnName:"書き出し",
     clickHandler: data_export
   },
-  {id: "INPORT",
+  {
+    btnName:"読み込み",
     clickHandler: data_inport
   }
 ];
 
-ReactDOM.render(
-  <MenuContentsList menuList={menuList} />,
-  document.querySelector('#menu')
-);
+// 一括レンダー関数
+var render = () => {
+  ReactDOM.render(
+    <MenuContentsList menuList={menuList} />,
+    document.querySelector('#menu')
+  );
+}
+
+render();
