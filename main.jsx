@@ -130,7 +130,28 @@ var data_registor = () => {  //データの登録・描画
   );
 }
 var data_export = () => {   //データの書き出し
-
+  //blob を使って Chrome 内のバッファ内にバイナリデータ （json） を保持し、それをローカルに落としこむ。
+  var data = {data: "testdata"};//get_fab_data();
+  var blob = new Blob([data], {type : "text/json"});
+  var file_title;
+  console.log(document.querySelector('#textbox_1').value);
+  if(document.querySelector('#textbox_1').value != ''){file_title = document.querySelector('#textbox_1').value + ".json";}
+  if(file_title != undefined){
+    if(window.navigator.msSaveBlob){
+      window.navigator.msSaveBlob(blob, file_title);
+      window.navigator.msSaveOrOpenBlob(blob, file_title);
+    }
+    else
+    {
+      window.URL = window.URL || window.webkitURL;
+      var links = document.querySelector('#download_links');
+      var temp = document.createElement("a");
+      temp.innerHTML = file_title;
+      temp.href = window.URL.createObjectURL(blob);
+      temp.setAttribute("download", file_title);
+      links.appendChild(temp);
+    }
+  }
 }
 
 var data_inport = () => {   //データの読み込み
@@ -150,6 +171,7 @@ var modal_textbox = _mode => {
       box_ret.push(<br />);
       break;
     case 1:
+      box_ret.push(<div id="download_links"></div>);
       box_ret.push(<lavel for="export_name">書き出しファイル名</lavel>);
       box_ret.push(<input name="export_name" type="text" id="textbox_1"></input>);
       box_ret.push(<br />);
