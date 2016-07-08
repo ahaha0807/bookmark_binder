@@ -131,10 +131,9 @@ var data_registor = () => {  //データの登録・描画
 }
 var data_export = () => {   //データの書き出し
   //blob を使って Chrome 内のバッファ内にバイナリデータ （json） を保持し、それをローカルに落としこむ。
-  var data = {data: "testdata"};//get_fab_data();
+  var data = get_fab_data();
   var blob = new Blob([data], {type : "text/json"});
   var file_title;
-  console.log(document.querySelector('#textbox_1').value);
   if(document.querySelector('#textbox_1').value != ''){file_title = document.querySelector('#textbox_1').value + ".json";}
   if(file_title != undefined){
     if(window.navigator.msSaveBlob){
@@ -158,7 +157,7 @@ var data_inport = () => {   //データの読み込み
 
 }
 
-var modal_textbox = _mode => {
+var modal_textbox = _mode => {  //モーダル内のテキストボックス追加
   var box_ret = [];
   switch (_mode) {
     // TODO: ここを関数・テンプレートで表示できるようにしたい
@@ -202,6 +201,29 @@ var modal_display = _mode => { //モーダル表示
   var cont_top = ((height - cont_height) / 2);
   $('#modal').css({"left": cont_left + "px"});
   $('#modal').css({"top": cont_top + "px"});
+}
+
+var get_fab_data = () => {  //お気に入りデータの取得
+  var ret_data = new Object();
+  var inner_data = [].slice.call(document.querySelectorAll('.content'));
+  //内部データの読み込み
+  inner_data.forEach((value, index) => {
+    var content = {};
+    var link_id = "#link_" + index;
+    var title_id = "#title_" + index;
+    var time_id = "#time_" + index;
+    var number_id = "#number_" + index;
+    content["link"] = document.querySelector(link_id).innerHTML;
+    content["title"] = document.querySelector(title_id).innerHTML;
+    content["time"] = document.querySelector(time_id).innerHTML;
+    content["number"] = document.querySelector(number_id).innerHTML;
+    ret_data[index] = content;
+  });
+  // 連想配列の文字列変換
+  ret_data = JSON.stringify(ret_data, (key,value) => {
+		return value;
+	} ,"\n ");
+  return ret_data;
 }
 
 //  データリスト配列
