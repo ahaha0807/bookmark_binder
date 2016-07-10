@@ -92,6 +92,36 @@ const ModalWindow = props => {
   )
 }
 
+const InportList = props => {
+  return (
+    <ul className="contents">
+      {props.fileList.map((content, index)=> <InportContent content={content} index={index} />)}
+    </ul>
+    )
+}
+
+const InportContent = props => {
+  var content = props.content;
+  return (
+    <li id={"content_" + (props.index)} className="content">
+      <InportContentLink link={content.link} index={props.index} />
+      <br />
+      <ContentTitle title={content.title} index={props.index} />
+      <ContentTime time={content.time} index={props.index} />
+      <ContentNumber index={props.index} />
+    </li>
+  )
+}
+
+const InportContentLink = props => {    //読み込み時用リンク定義
+  var propslink = inport_link_convert(props.link);
+  return (
+    <h2 id={"link_" + props.index} className="link">
+      <a href={propslink}>{propslink}</a>
+    </h2>
+  )
+}
+
 // === ＪＳ関数定義 ===
 
 var set_date = () => { //日付・時刻の取得
@@ -154,7 +184,18 @@ var data_export = () => {   //データの書き出し
 }
 
 var data_inport = () => {   //データの読み込み
-
+  var inp_file = document.querySelector('#file_1').files[0];
+  var reader = new FileReader();
+  reader.addEventListener('load', e => {
+    var file_data = reader.result;
+    file_data = JSON.parse(file_data);
+    file_data = Object.values(file_data);
+    ReactDOM.render(
+      <InportList fileList={file_data} />
+      ,document.querySelector('#container')
+    );
+  }, true);
+  reader.readAsText(inp_file);
 }
 
 var modal_textbox = _mode => {  //モーダル内のテキストボックス追加
@@ -224,6 +265,12 @@ var get_fab_data = () => {  //お気に入りデータの取得
 		return value;
 	} ,"\n ");
   return ret_data;
+}
+
+var inport_link_convert = _link => {  //読み込み後リストの修正
+  var start = _link.search(/\">/) + 2;
+  var end = _link.search(/<\/a>/);
+  return _link.slice(start, end);
 }
 
 //  データリスト配列
