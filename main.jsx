@@ -164,7 +164,9 @@ var data_export = () => {   //データの書き出し
   var data = get_fab_data();
   var blob = new Blob([data], {type : "text/json"});
   var file_title;
-  if(document.querySelector('#textbox_1').value != ''){file_title = document.querySelector('#textbox_1').value + ".json";}
+  if(document.querySelector('#textbox_1').value != ''){
+    file_title = document.querySelector('#textbox_1').value + "_bf.json";
+  }
   if(file_title != undefined){
     if(window.navigator.msSaveBlob){
       window.navigator.msSaveBlob(blob, file_title);
@@ -177,6 +179,7 @@ var data_export = () => {   //データの書き出し
       var temp = document.createElement("a");
       temp.innerHTML = file_title;
       temp.href = window.URL.createObjectURL(blob);
+      // TODO: ここにファイルダウンロードリンク用のクラスをつける
       temp.setAttribute("download", file_title);
       links.appendChild(temp);
     }
@@ -261,7 +264,7 @@ var get_fab_data = () => {  //お気に入りデータの取得
     ret_data[index] = content;
   });
   // 連想配列の文字列変換
-  ret_data = JSON.stringify(ret_data, (key,value) => {
+  ret_data = JSON.stringify(ret_data, (index ,value) => {
 		return value;
 	} ,"\n ");
   return ret_data;
