@@ -1,3 +1,18 @@
 @charset "UTF-8";
 
-/*== メイン ===========*/
+/*======= 初期化 ======*/
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+button {
+  border: none;
+}
+
+/*========= メイン ==========*/
