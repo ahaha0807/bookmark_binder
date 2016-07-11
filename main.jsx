@@ -36,7 +36,7 @@ const Content = props => {      //コンテンツコンポーネント定義
 
 const ContentTitle = props => {   //タイトルコンポーネント定義
   return (
-    <h1 id={"title_" + props.index}>
+    <h1 id={"title_" + props.index} className="title">
       {props.title}
     </h1>
   )
@@ -87,7 +87,7 @@ const ModalWindow = props => {
     <div id="modal_content">
       {modal_textbox(props.mode)}
       <button onClick={props.modalList[props.mode].clickHandler}>{props.modalList[props.mode].btnName}</button>
-      <button onClick="modal_close();">閉じる</button>
+      <button onClick={modal_close}>閉じる</button>
     </div>
   )
 }
@@ -160,7 +160,6 @@ var data_registor = () => {  //データの登録・描画
   );
 }
 var data_export = () => {   //データの書き出し
-  //blob を使って Chrome 内のバッファ内にバイナリデータ （json） を保持し、それをローカルに落としこむ。
   var data = get_fab_data();
   var blob = new Blob([data], {type : "text/json"});
   var file_title;
@@ -179,7 +178,7 @@ var data_export = () => {   //データの書き出し
       var temp = document.createElement("a");
       temp.innerHTML = file_title;
       temp.href = window.URL.createObjectURL(blob);
-      // TODO: ここにファイルダウンロードリンク用のクラスをつける
+      temp.setAttribute("class", "link")
       temp.setAttribute("download", file_title);
       links.appendChild(temp);
     }
@@ -245,6 +244,7 @@ var modal_display = _mode => { //モーダル表示
   var cont_top = ((height - cont_height) / 2);
   $('#modal').css({"left": cont_left + "px"});
   $('#modal').css({"top": cont_top + "px"});
+  $('#modal_content').fadeIn();
 }
 
 var get_fab_data = () => {  //お気に入りデータの取得
@@ -274,6 +274,10 @@ var inport_link_convert = _link => {  //読み込み後リストの修正
   var start = _link.search(/\">/) + 2;
   var end = _link.search(/<\/a>/);
   return _link.slice(start, end);
+}
+
+var modal_close = () => {
+  $('#modal_content').fadeOut();
 }
 
 //  データリスト配列
