@@ -76,7 +76,7 @@ const MenuContentsList = props => {   //メニューリストコンポーネン�
 
 const MenuContent = props => {    //メニューボタンコンポーネント定義
   return (
-    <li className="menu_item">
+    <li>
       <button id={props.item.id} className="menu_item" onClick={props.item.clickHandler}>{props.item.id}</button>
     </li>
   )
