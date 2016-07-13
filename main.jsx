@@ -45,7 +45,7 @@ const ContentTitle = props => {   //タイトルコンポーネント定義
 const ContentLink = props => {    //リンクコンポーネント定義
   return (
     <h2 id={"link_" + props.index} className="link">
-      <a href={props.link}>{props.link}</a>
+      <a href={props.link}  target="_blank">{props.link}</a>
     </h2>
   )
 }
@@ -117,7 +117,7 @@ const InportContentLink = props => {    //読み込み時用リンク定義
   var propslink = inport_link_convert(props.link);
   return (
     <h2 id={"link_" + props.index} className="link">
-      <a href={propslink}>{propslink}</a>
+      <a href={propslink}  target="_blank">{propslink}</a>
     </h2>
   )
 }
