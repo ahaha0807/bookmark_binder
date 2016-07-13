@@ -147,17 +147,19 @@ var data_registor = () => {  //データの登録・描画
     id    : 0,
     time  : ""
   };
-  content['link']  = document.querySelector('#textbox_1').value;
-  content['title'] = document.querySelector('#textbox_2').value;
-  content['id']    = cnt++;
-  content['time']  = set_date();
+  if(document.querySelector('#textbox_1').value != "" && document.querySelector('#textbox_2').value != ""){
+    content['link']  = document.querySelector('#textbox_1').value;
+    content['title'] = document.querySelector('#textbox_2').value;
+    content['id']    = cnt++;
+    content['time']  = set_date();
 
-  contentsList.push(content);
+    contentsList.push(content);
 
-  ReactDOM.render(
-    <ContentsList contentsList={contentsList} />,
-    document.querySelector('#container')
-  );
+    ReactDOM.render(
+      <ContentsList contentsList={contentsList} />,
+      document.querySelector('#container')
+    );
+  }
 }
 var data_export = () => {   //データの書き出し
   var data = get_fab_data();
@@ -244,7 +246,9 @@ var modal_display = _mode => { //モーダル表示
   var cont_top = ((height - cont_height) / 2);
   $('#modal').css({"left": cont_left + "px"});
   $('#modal').css({"top": cont_top + "px"});
-  $('#modal_content').fadeIn();
+  $('#modal').fadeIn();
+  $('#modal_overlay').fadeIn('slow');
+  document.querySelector('#modal_overlay').addEventListener("click", modal_close, false);
 }
 
 var get_fab_data = () => {  //お気に入りデータの取得
@@ -277,7 +281,8 @@ var inport_link_convert = _link => {  //読み込み後リストの修正
 }
 
 var modal_close = () => {
-  $('#modal_content').fadeOut();
+  $('#modal').fadeOut();
+  $('#modal_overlay').fadeOut();
 }
 
 //  データリスト配列
