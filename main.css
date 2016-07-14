@@ -82,16 +82,24 @@ header {
 }
 .link a{
   color: orange;
+  display: inline-block;
+  width: 95%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .link a:visited {
-  color: #fff;
+  color: orange;
 }
 
 .title {
   margin: 0 0 1% 0;
   width: 50%;
   color: #ffe;
+  display: inline-block;
+  width: 95%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .data {
@@ -136,9 +144,22 @@ header {
     height: 14vh
   }
   .link {
+    color: orange;
     clear: both;
+    display: inline-block;
+    width: 50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .title {
     float: left;
+    display: inline-block;
+    width: 50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+  }
+  .data {
+    position: absolute;
   }
 }
