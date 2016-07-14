@@ -28,8 +28,10 @@ const Content = props => {      //コンテンツコンポーネント定義
       <ContentLink link={content.link} index={props.index} />
       <br />
       <ContentTitle title={content.title} index={props.index} />
-      <ContentTime time={content.time} index={props.index} />
-      <ContentNumber index={props.index} />
+      <div id={props.index} className="data">
+        <ContentTime time={content.time} index={props.index} />
+        <ContentNumber index={props.index} />
+      </div>
     </li>
   )
 }
@@ -107,8 +109,10 @@ const InportContent = props => {
       <InportContentLink link={content.link} index={props.index} />
       <br />
       <ContentTitle title={content.title} index={props.index} />
-      <ContentTime time={content.time} index={props.index} />
-      <ContentNumber index={props.index} />
+      <div id={props.index} className="data">
+        <ContentTime time={content.time} index={props.index} />
+        <ContentNumber index={props.index} />
+      </div>
     </li>
   )
 }
