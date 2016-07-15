@@ -197,7 +197,7 @@ var data_inport = () => {   //データの読み込み
   reader.addEventListener('load', e => {
     var file_data = reader.result;
     file_data = JSON.parse(file_data);
-    file_data = Object.values(file_data);
+    file_data = $.map(file_data, function(val, key) { return val; });
     ReactDOM.render(
       <InportList fileList={file_data} />
       ,document.querySelector('#container')
