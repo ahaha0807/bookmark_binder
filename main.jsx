@@ -88,8 +88,8 @@ const ModalWindow = props => {
   return (
     <div id="modal_content">
       {modal_textbox(props.mode)}
-      <button onClick={props.modalList[props.mode].clickHandler}>{props.modalList[props.mode].btnName}</button>
-      <button onClick={modal_close}>閉じる</button>
+      <button className="submit" onClick={props.modalList[props.mode].clickHandler}>{props.modalList[props.mode].btnName}</button>
+      <button className="close" onClick={modal_close}>閉じる</button>
     </div>
   )
 }
@@ -212,20 +212,20 @@ var modal_textbox = _mode => {  //モーダル内のテキストボックス追�
     // TODO: ここを関数・テンプレートで表示できるようにしたい
     case 0:
       box_ret.push(<label for="regist_url">URL</label>);
-      box_ret.push(<input name="regist_url" type="text" id="textbox_1"></input>);
+      box_ret.push(<input name="regist_url" type="text" id="textbox_1" placeholder="URLを入力してください"></input>);
       box_ret.push(<br />);
       box_ret.push(<label for="regist_title">タイトル・登録名</label>);
-      box_ret.push(<input name="regist_title" type="text" id="textbox_2"></input>);
+      box_ret.push(<input name="regist_title" type="text" id="textbox_2"　placeholder="登録名を入力してください"></input>);
       box_ret.push(<br />);
       break;
     case 1:
       box_ret.push(<div id="download_links"></div>);
-      box_ret.push(<lavel for="export_name">書き出しファイル名</lavel>);
-      box_ret.push(<input name="export_name" type="text" id="textbox_1"></input>);
+      box_ret.push(<label for="export_name">書き出しファイル名</label>);
+      box_ret.push(<input name="export_name" type="text" id="textbox_1"placeholder="ファイル名を入力してください"></input>);
       box_ret.push(<br />);
       break;
     case 2:
-      box_ret.push(<lavel for="inport_name">読み込みファイル</lavel>);
+      box_ret.push(<label for="inport_name">読み込みファイル</label>);
       box_ret.push(<input name="inport_name" type="file" id="file_1"></input>);
       box_ret.push(<br />);
       break;
