@@ -167,7 +167,7 @@ label {
 }
 
 
-@media screen and (max-width: 748px){
+@media screen and (max-width: 760px){
   #service_title {
     font-size: 1.5em;
   }
@@ -191,9 +191,25 @@ label {
     width: 50%;
     overflow: hidden;
     text-overflow: ellipsis;
-
   }
   .data {
     position: absolute;
+  }
+
+  label {
+    font-size: 1em;
+  }
+
+  #textbox_1, #textbox_2 {
+    height: 1em;
+    font-size: 1em;
+  }
+
+  #file_1 {
+    font-size: 1em;
+  }
+
+  .submit, .close {
+    font-size: 1em;
   }
 }
