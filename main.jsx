@@ -28,8 +28,10 @@ const Content = props => {      //コンテンツコンポーネント定義
       <ContentLink link={content.link} index={props.index} />
       <br />
       <ContentTitle title={content.title} index={props.index} />
-      <ContentTime time={content.time} index={props.index} />
-      <ContentNumber index={props.index} />
+      <div id={props.index} className="data">
+        <ContentTime time={content.time} index={props.index} />
+        <ContentNumber index={props.index} />
+      </div>
     </li>
   )
 }
@@ -45,7 +47,7 @@ const ContentTitle = props => {   //タイトルコンポーネント定義
 const ContentLink = props => {    //リンクコンポーネント定義
   return (
     <h2 id={"link_" + props.index} className="link">
-      <a href={props.link}>{props.link}</a>
+      <a href={props.link}  target="_blank">{props.link}</a>
     </h2>
   )
 }
@@ -76,7 +78,7 @@ const MenuContentsList = props => {   //メニューリストコンポーネン�
 
 const MenuContent = props => {    //メニューボタンコンポーネント定義
   return (
-    <li className="menu_item">
+    <li>
       <button id={props.item.id} className="menu_item" onClick={props.item.clickHandler}>{props.item.id}</button>
     </li>
   )
@@ -86,8 +88,8 @@ const ModalWindow = props => {
   return (
     <div id="modal_content">
       {modal_textbox(props.mode)}
-      <button onClick={props.modalList[props.mode].clickHandler}>{props.modalList[props.mode].btnName}</button>
-      <button onClick={modal_close}>閉じる</button>
+      <button className="submit" onClick={props.modalList[props.mode].clickHandler}>{props.modalList[props.mode].btnName}</button>
+      <button className="close" onClick={modal_close}>閉じる</button>
     </div>
   )
 }
@@ -107,8 +109,10 @@ const InportContent = props => {
       <InportContentLink link={content.link} index={props.index} />
       <br />
       <ContentTitle title={content.title} index={props.index} />
-      <ContentTime time={content.time} index={props.index} />
-      <ContentNumber index={props.index} />
+      <div id={props.index} className="data">
+        <ContentTime time={content.time} index={props.index} />
+        <ContentNumber index={props.index} />
+      </div>
     </li>
   )
 }
@@ -117,7 +121,7 @@ const InportContentLink = props => {    //読み込み時用リンク定義
   var propslink = inport_link_convert(props.link);
   return (
     <h2 id={"link_" + props.index} className="link">
-      <a href={propslink}>{propslink}</a>
+      <a href={propslink}  target="_blank">{propslink}</a>
     </h2>
   )
 }
@@ -147,17 +151,19 @@ var data_registor = () => {  //データの登録・描画
     id    : 0,
     time  : ""
   };
-  content['link']  = document.querySelector('#textbox_1').value;
-  content['title'] = document.querySelector('#textbox_2').value;
-  content['id']    = cnt++;
-  content['time']  = set_date();
+  if(document.querySelector('#textbox_1').value != "" && document.querySelector('#textbox_2').value != ""){
+    content['link']  = document.querySelector('#textbox_1').value;
+    content['title'] = document.querySelector('#textbox_2').value;
+    content['id']    = cnt++;
+    content['time']  = set_date();
 
-  contentsList.push(content);
+    contentsList.push(content);
 
-  ReactDOM.render(
-    <ContentsList contentsList={contentsList} />,
-    document.querySelector('#container')
-  );
+    ReactDOM.render(
+      <ContentsList contentsList={contentsList} />,
+      document.querySelector('#container')
+    );
+  }
 }
 var data_export = () => {   //データの書き出し
   var data = get_fab_data();
@@ -178,7 +184,7 @@ var data_export = () => {   //データの書き出し
       var temp = document.createElement("a");
       temp.innerHTML = file_title;
       temp.href = window.URL.createObjectURL(blob);
-      temp.setAttribute("class", "link")
+      temp.setAttribute("class", "download_link")
       temp.setAttribute("download", file_title);
       links.appendChild(temp);
     }
@@ -191,7 +197,7 @@ var data_inport = () => {   //データの読み込み
   reader.addEventListener('load', e => {
     var file_data = reader.result;
     file_data = JSON.parse(file_data);
-    file_data = Object.values(file_data);
+    file_data = $.map(file_data, function(val, key) { return val; });
     ReactDOM.render(
       <InportList fileList={file_data} />
       ,document.querySelector('#container')
@@ -206,20 +212,20 @@ var modal_textbox = _mode => {  //モーダル内のテキストボックス追�
     // TODO: ここを関数・テンプレートで表示できるようにしたい
     case 0:
       box_ret.push(<label for="regist_url">URL</label>);
-      box_ret.push(<input name="regist_url" type="text" id="textbox_1"></input>);
+      box_ret.push(<input name="regist_url" type="text" id="textbox_1" placeholder="URLを入力してください"></input>);
       box_ret.push(<br />);
       box_ret.push(<label for="regist_title">タイトル・登録名</label>);
-      box_ret.push(<input name="regist_title" type="text" id="textbox_2"></input>);
+      box_ret.push(<input name="regist_title" type="text" id="textbox_2"　placeholder="登録名を入力してください"></input>);
       box_ret.push(<br />);
       break;
     case 1:
-      box_ret.push(<div id="download_links"></div>);
-      box_ret.push(<lavel for="export_name">書き出しファイル名</lavel>);
-      box_ret.push(<input name="export_name" type="text" id="textbox_1"></input>);
+      box_ret.push(<label for="export_name">書き出しファイル名</label>);
+      box_ret.push(<input name="export_name" type="text" id="textbox_1"placeholder="ファイル名を入力してください"></input>);
       box_ret.push(<br />);
+      box_ret.push(<div id="download_links"></div>);
       break;
     case 2:
-      box_ret.push(<lavel for="inport_name">読み込みファイル</lavel>);
+      box_ret.push(<label for="inport_name">読み込みファイル</label>);
       box_ret.push(<input name="inport_name" type="file" id="file_1"></input>);
       box_ret.push(<br />);
       break;
@@ -244,7 +250,9 @@ var modal_display = _mode => { //モーダル表示
   var cont_top = ((height - cont_height) / 2);
   $('#modal').css({"left": cont_left + "px"});
   $('#modal').css({"top": cont_top + "px"});
-  $('#modal_content').fadeIn();
+  $('#modal').fadeIn();
+  $('#modal_overlay').fadeIn('slow');
+  document.querySelector('#modal_overlay').addEventListener("click", modal_close, false);
 }
 
 var get_fab_data = () => {  //お気に入りデータの取得
@@ -277,7 +285,8 @@ var inport_link_convert = _link => {  //読み込み後リストの修正
 }
 
 var modal_close = () => {
-  $('#modal_content').fadeOut();
+  $('#modal').fadeOut();
+  $('#modal_overlay').fadeOut();
 }
 
 //  データリスト配列
