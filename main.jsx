@@ -159,6 +159,9 @@ var data_registor = () => {  //データの登録・描画
 
     contentsList.push(content);
 
+    document.querySelector('#textbox_1').value = "";
+    document.querySelector('#textbox_2').value = "";
+
     ReactDOM.render(
       <ContentsList contentsList={contentsList} />,
       document.querySelector('#container')
