@@ -22,6 +22,10 @@ button {
 header {
   background-color: #222;
   height: 10%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 10;
 }
 #service_title {
   margin: 0;
@@ -64,6 +68,12 @@ header {
 }
 .menu_item:hover{
   background-color: #666;
+}
+
+#container {
+  width: 100%;
+  top: 10%;
+  position: absolute;
 }
 
 .content {
@@ -166,6 +176,18 @@ label {
   color: #fff;
 }
 
+#download_links {
+  height: 30vh;
+  overflow: auto;
+
+}
+
+.download_link {
+  font-size: 2em;
+  color: #eee;
+  display: block;
+  text-align: center;
+}
 
 @media screen and (max-width: 760px){
   #service_title {
@@ -210,6 +232,10 @@ label {
   }
 
   .submit, .close {
+    font-size: 1em;
+  }
+
+  .download_link {
     font-size: 1em;
   }
 }

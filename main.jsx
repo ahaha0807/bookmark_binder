@@ -184,7 +184,7 @@ var data_export = () => {   //データの書き出し
       var temp = document.createElement("a");
       temp.innerHTML = file_title;
       temp.href = window.URL.createObjectURL(blob);
-      temp.setAttribute("class", "link")
+      temp.setAttribute("class", "download_link")
       temp.setAttribute("download", file_title);
       links.appendChild(temp);
     }
@@ -219,10 +219,10 @@ var modal_textbox = _mode => {  //モーダル内のテキストボックス追�
       box_ret.push(<br />);
       break;
     case 1:
-      box_ret.push(<div id="download_links"></div>);
       box_ret.push(<label for="export_name">書き出しファイル名</label>);
       box_ret.push(<input name="export_name" type="text" id="textbox_1"placeholder="ファイル名を入力してください"></input>);
       box_ret.push(<br />);
+      box_ret.push(<div id="download_links"></div>);
       break;
     case 2:
       box_ret.push(<label for="inport_name">読み込みファイル</label>);
