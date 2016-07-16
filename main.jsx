@@ -162,6 +162,8 @@ var data_registor = () => {  //データの登録・描画
     document.querySelector('#textbox_1').value = "";
     document.querySelector('#textbox_2').value = "";
 
+    document.querySelector('#textbox_1').focus();
+
     ReactDOM.render(
       <ContentsList contentsList={contentsList} />,
       document.querySelector('#container')
@@ -207,6 +209,7 @@ var data_inport = () => {   //データの読み込み
     );
   }, true);
   reader.readAsText(inp_file);
+  modal_close();
 }
 
 var modal_textbox = _mode => {  //モーダル内のテキストボックス追加
@@ -255,6 +258,13 @@ var modal_display = _mode => { //モーダル表示
   $('#modal').css({"top": cont_top + "px"});
   $('#modal').fadeIn();
   $('#modal_overlay').fadeIn('slow');
+  if(_mode == 2){
+    document.querySelector('#file_1').focus();
+  }
+  else
+  {
+    document.querySelector('#textbox_1').focus();
+  }
   document.querySelector('#modal_overlay').addEventListener("click", modal_close, false);
 }
 
