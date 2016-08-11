@@ -202,9 +202,13 @@ var data_inport = () => {   //データの読み込み
   reader.addEventListener('load', e => {
     var file_data = reader.result;
     file_data = JSON.parse(file_data);
-    file_data = $.map(file_data, function(val, key) { return val; });
+    file_data = $.map(file_data, (val, key) => { return val; });  //オブジェクトから配列への変換
+    file_data.forEach((value) => {
+      value.link = inport_link_convert(value.link);
+      contentsList.push(value);
+    });
     ReactDOM.render(
-      <InportList fileList={file_data} />
+      <ContentsList contentsList={contentsList} />
       ,document.querySelector('#container')
     );
   }, true);
