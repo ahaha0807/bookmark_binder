@@ -2,21 +2,31 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>メインページ</title>
+    <title>BookMark Binder</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+    <script type="text/javascript" src="https://fb.me/react-15.1.0.js"></script>
+    <script type="text/javascript" src="https://fb.me/react-dom-15.1.0.js"></script>
+    <script type="text/jsx" src="./main.jsx"></script>
+    <link rel="stylesheet" href="main.css" media="screen" charset="utf-8">
+  </head>
   <body>
     <!-- TODO: ReactでBookmark Filerを作る -->
+    <!-- メニューバー -->
     <header>
-      <h2>Site Title</h2>
-      <menu id="main_menu">
-        <ul>
-          <li><a href="#">HOME</a></li>
-          <li><a href="#">ADD</a></li>
-          <li><a href="#">TUTORIAL</a></li>
-        </ul>
+      <h2 id="service_title">BookMark Binder</h2>
+      <menu id="menu">
       </menu>
     </header>
-
-
-
+    <!-- コンテンツチャンク -->
+    <div id="container">
+      <!-- ユーザーコンテンツ -->
+    </div>
+    <div id="modal">
+      <!-- モーダルコンテンツ -->
+    </div>
+    <div id="modal_overlay">
+      <!-- モーダルオーバーレイ -->
+    </div>
   </body>
 </html>
