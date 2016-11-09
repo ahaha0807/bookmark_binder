@@ -157,6 +157,9 @@ var data_registor = () => {  //データの登録・描画
     content['id']    = cnt++;
     content['time']  = set_date();
 
+    // プロトコル指定のチェック
+    content['link'] = checkProtocol(content['link']);
+
     contentsList.push(content);
 
     document.querySelector('#textbox_1').value = "";
@@ -304,6 +307,14 @@ var inport_link_convert = _link => {  //読み込み後リストの修正
 var modal_close = () => {
   $('#modal').fadeOut();
   $('#modal_overlay').fadeOut();
+}
+
+var checkProtocol = _link => {
+  if (_link.slice(0, 7) != "http://" && _link.slice(0, 8) != "https://") {
+    return "http://" + _link;
+  } else {
+    return _link;
+  }
 }
 
 //  データリスト配列
