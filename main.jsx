@@ -23,6 +23,7 @@ const ContentsList = props => {     //コンテンツリストコンポーネン
 
 const Content = props => {      //コンテンツコンポーネント定義
   var content = props.content;
+  content.title = htmlCharactersConvert(content.title);
   return (
     <li id={"content_" + (props.index)} className="content">
       <ContentLink link={content.link} index={props.index} />
@@ -157,7 +158,7 @@ var data_registor = () => {  //データの登録・描画
     content['id']    = cnt++;
     content['time']  = set_date();
 
-    // プロトコル指定のチェック
+    // リンクのチェック
     content['link'] = checkProtocol(content['link']);
 
     contentsList.push(content);
@@ -301,7 +302,8 @@ var get_fab_data = () => {  //お気に入りデータの取得
 var inport_link_convert = _link => {  //読み込み後リストの修正
   var start = _link.search(/\">/) + 2;
   var end = _link.search(/<\/a>/);
-  return _link.slice(start, end);
+  _link = _link.slice(start, end);
+  return _link = checkProtocol(_link);
 }
 
 var modal_close = () => {
@@ -311,10 +313,26 @@ var modal_close = () => {
 
 var checkProtocol = _link => {
   if (_link.slice(0, 7) != "http://" && _link.slice(0, 8) != "https://") {
+    _link = htmlCharactersConvert(_link);
     return "http://" + _link;
   } else {
+    _link = htmlCharactersConvert(_link);
     return _link;
   }
+}
+
+var htmlCharactersConvert = _string => {
+  // 置換前の文字 (変数に代入)
+  var before = ["&lt;", "&gt;", "&amp;"];
+  var after = ["<", ">", "&"];
+  var regExp;
+
+  for (var i = 0; i < 3; i++) {
+    // 変数でRegExpオブジェクトを作成
+    regExp = new RegExp(before[i], "g");
+    _string = _string.replace(regExp , after[i]);
+  }
+  return _string;
 }
 
 //  データリスト配列
