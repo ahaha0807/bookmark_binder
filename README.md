@@ -3,7 +3,7 @@
 ### BookMark Binder (旧名 Bookmark Filer)
 
 ### URL 
-http://ahaha0807.github.io/bookmark_binder/main.html
+http://gatchan0807.github.io/bookmark_binder/main.html
 
 ## 用途
 お気に入りサイトのURLを登録することで**ファイルへの書き出し**が可能に！
